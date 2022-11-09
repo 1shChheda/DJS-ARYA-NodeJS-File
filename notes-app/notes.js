@@ -11,12 +11,18 @@
         //     return note.title === title
         // })
 
-        const duplicateNotes = notes.filter((note) => note.title === title) // if true, the duplicateNotes array will have 1 element, else 0 elements
+        // const duplicateNotes = notes.filter((note) => note.title === title) // if true, the duplicateNotes array will have 1 element, else 0 elements
         // const duplicateNotes = notes.filter(function(note){
         //     return note.title === title // if true, the duplicateNotes array will have 1 element, else 0 elements
         // })
 
-        if (duplicateNotes.length === 0){
+    //filter() will go through every array element,even after finding a duplicate, it won't stop & proceed to search for other duplicates, which aren't there (obviously), so this method kinda lags when we're searching through a big notes list
+
+    //Instead, we'll use find(), which returns the value of the first element that passes a test, & then stops.
+        const duplicateNote = notes.find((note) => note.title === title)
+
+
+        if (!duplicateNote){
             notes.push({
                 title: title,
                 body: body
@@ -67,7 +73,7 @@
         // })
         saveNotes(notesToKeep);
 
-}
+    }
 
     const listNotes = () => {
         const notes = loadNotes();
@@ -79,9 +85,23 @@
         })
     }
 
+        const readNote = (title) => {
+            const notes = loadNotes();
+            const searchNote = notes.find((note) => note.title === title);
+
+            if(searchNote !== undefined){
+                console.log(chalk.bgCyanBright.bold(`"${searchNote.title}"`));
+                console.log(chalk.yellowBright.italic(`${searchNote.body}`));
+
+            } else {
+                console.log(chalk.bgRed.bold(`Note does not Exist!`));
+            }
+        }
+
 
     module.exports = {
         addNote: addNote,
         removeNote: removeNote,
-        listNotes: listNotes
+        listNotes: listNotes,
+        readNote: readNote
     }
