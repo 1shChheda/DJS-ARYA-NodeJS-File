@@ -94,7 +94,7 @@
 
 //Lecture 7 (S3-03)
         const yargs = require('yargs');
-
+        const notes = require('./notes.js');
         // console.log(process.argv);
         // console.log(yargs.argv); // to see what parsing has yargs done
     // Terminal: node app.js add --title="Harry Porter"
@@ -117,17 +117,18 @@
                 },
                 body: {
                     describe: 'main body of the Note',
+                    demandOption: true,
                     type: 'string'
                 }
             },
             handler: function (argv){
-                console.log(`Title: `+ argv.title)
-                if(argv.body === '' || argv.body === undefined){ //an additional add-on from my end
-                    console.log('Body: <EMPTY>');
-                } else{
-                    console.log(`Body: `+ argv.body);
-                }
-                
+                // console.log(`Title: `+ argv.title)
+                // if(argv.body === '' || argv.body === undefined){ //an additional add-on from my end
+                //     console.log('Body: <EMPTY>');
+                // } else{
+                //     console.log(`Body: `+ argv.body);
+                // }
+                notes.addNote(argv.title,argv.body)
             }
         });
         yargs.command({
@@ -156,3 +157,4 @@
     // console.log(yargs.argv);
 
 //Lecture 8 (S3-04) {present in: `./playground/1-json.js`}
+//Lecture 9 (S3-05) {present in: `./notes.js` & `./1-notes.json`}
