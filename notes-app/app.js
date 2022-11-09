@@ -121,34 +121,41 @@
                     type: 'string'
                 }
             },
-            handler: function (argv){
+            handler(argv){
                 // console.log(`Title: `+ argv.title)
                 // if(argv.body === '' || argv.body === undefined){ //an additional add-on from my end
                 //     console.log('Body: <EMPTY>');
                 // } else{
                 //     console.log(`Body: `+ argv.body);
                 // }
-                notes.addNote(argv.title,argv.body)
+                notes.addNote(argv.title,argv.body);
             }
         });
         yargs.command({
             command: 'remove',
             describe: 'Remove a note',
-            handler: function (){
-                console.log(`Removing a Note!`)
+            builder: {
+                title: {
+                    describe: `Title of Note to be removed`,
+                    demandOption: true,
+                    type: `string`
+                }
+            },
+            handler(argv){
+                notes.removeNote(argv.title);
             }
         });
         yargs.command({
             command: 'list',
             describe: 'List all notes',
-            handler: function (){
+            handler(){
                 console.log(`Listing all Notes!`)
             }
         });
         yargs.command({
             command: 'read',
             describe: 'Read a note',
-            handler: function (){
+            handler(){
                 console.log(`Reading a Note!`)
             }
         });
