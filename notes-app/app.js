@@ -123,7 +123,7 @@
             handler: function (argv){
                 console.log(`Title: `+ argv.title)
                 if(argv.body === '' || argv.body === undefined){ //an additional add-on from my end
-                    console.log('No body data yet');
+                    console.log('Body: <EMPTY>');
                 } else{
                     console.log(`Body: `+ argv.body);
                 }
@@ -155,8 +155,4 @@
     yargs.parse(); // does the Parsing thing without printing entire argv again (like console.log(yargs.argv) does)
     // console.log(yargs.argv);
 
-    
-
-        
-        
-
+//Lecture 8 (S3-04) {present in: `./playground/1-json.js`}
