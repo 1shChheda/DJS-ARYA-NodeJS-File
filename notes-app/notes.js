@@ -68,7 +68,20 @@
         saveNotes(notesToKeep);
 
 }
+
+    const listNotes = () => {
+        const notes = loadNotes();
+
+        console.log(chalk.yellow.inverse.bold(`Your Notes :`));
+
+        notes.forEach((note) => {
+            console.log(chalk.bgMagenta(note.title));
+        })
+    }
+
+
     module.exports = {
         addNote: addNote,
-        removeNote: removeNote
+        removeNote: removeNote,
+        listNotes: listNotes
     }
