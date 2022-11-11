@@ -21,6 +21,8 @@
     //Instead, we'll use find(), which returns the value of the first element that passes a test, & then stops.
         const duplicateNote = notes.find((note) => note.title === title)
 
+        // console.log(duplicateNote); // to check within the duplicateNote, where is error occuring
+        debugger
 
         if (!duplicateNote){
             notes.push({
@@ -105,3 +107,29 @@
         listNotes: listNotes,
         readNote: readNote
     }
+    
+//Lecture 10 (Debugging)
+    // There will be two types of errors :
+
+        // 1) when we make any typos & we get an EXPLICIT error (something's gone wrong)
+
+            // a long message will be printed in terminal
+            // the 1st line after "ReferenceError: `variable_name` is not defined" is the most important
+            // it pin-points exactly where the typo/error has occured
+
+        // 2) some logic problem in the code (where no EXPLICIT error message is shown)
+
+            // Method 1: use `console.log()`
+                // also, console.log() needs to be added at a specific point in apllication (where it feels like an error)
+                
+            // Method 2: node `debugger` (built in debugging tool which integrates with V8 engine & chrome browser)
+                // use `debugger` at a specific point in apllication (where it feels like an error)
+                // it won't stop our program by default
+                // we have to run Node with a special option to get it stop {which is `node inspect`}
+                    // if `node inspect` doesn't work, use `node --inspect-brk`
+                // then, go to chrome://inspect
+                // and click on inspect of the current file you're working on (shown there since you used `debugger`)
+                    // 1st pause: on 1st line of code where applications starts to run
+                    // click resume button,
+                    // 2nd pause: on `debugger` line
+                // to exit, click ctrl+C twice, & you'll come back to COMMAND-LINE
