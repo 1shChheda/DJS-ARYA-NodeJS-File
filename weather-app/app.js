@@ -49,19 +49,19 @@
 
     //to change the units, we add another key-value pair to the URL, in accordance with the documentation given on weatherstack site
         
-        const url = 'http://api.weatherstack.com/current?access_key=f2073b03c4a593be7688505ed3d0e125&query=37.8267,-122.4233&units=f';
+        // const url = 'http://api.weatherstack.com/current?access_key=f2073b03c4a593be7688505ed3d0e125&query=37.8267,-122.4233&units=f';
 
     // Challenge 01
-    request({ url: url, json: true }, (error, response) => {
-        if(error){ // for a low level OS error
-            console.log(`Unable to connect to weather services!`);
-        } else if(response.body.error){
-            console.log(`Unable to find the location!`);
+    // request({ url: url, json: true }, (error, response) => {
+    //     if(error){ // for a low level OS error
+    //         console.log(`Unable to connect to weather services!`);
+    //     } else if(response.body.error){
+    //         console.log(`Unable to find the location!`);
 
-        } else {
-            console.log(`${response.body.current.weather_descriptions[0]} Its is currently ${response.body.current.temperature} degrees fahrenheit out.\nIt feels like ${response.body.current.feelslike} degrees fahrenheit out`);
-        }
-    })
+    //     } else {
+    //         console.log(`${response.body.current.weather_descriptions[0]} Its is currently ${response.body.current.temperature} degrees fahrenheit out.\nIt feels like ${response.body.current.feelslike} degrees fahrenheit out`);
+    //     }
+    // })
 
 //Weather-App 05
     // GeoCoding : taking an address like Mumbai, Maharashtra & converting it to lat & long coordinate pairs
@@ -69,23 +69,34 @@
 
         // note: I've used LocationIQ API here instead of MapBox, sinced it asked for biling credentials at the signup page (even for free signup)
 
-    const geocodeURL = 'https://us1.locationiq.com/v1/search?key=pk.421302a764d3b83e5cf4308bf4b0590f&format=json&limit=1&q=12what';
+    // const geocodeURL = 'https://us1.locationiq.com/v1/search?key=pk.421302a764d3b83e5cf4308bf4b0590f&format=json&limit=1&q=Delhi';
 
-    request({ url: geocodeURL, json: true }, (error, response) => {
-        if(error){ // for a low level OS error
-            console.log(`Unable to connect to location services!`);
-        } else if(response.body.error){
-            console.log(`Please Enter a Valid Location Name!`);
+    // request({ url: geocodeURL, json: true }, (error, response) => {
+    //     if(error){ // for a low level OS error
+    //         console.log(`Unable to connect to location services!`);
+    //     } else if(response.body.error){
+    //         console.log(`Please Enter a Valid Location Name!`);
 
-        } else {
-        let latitude = response.body[0].lat;
-        let longitude = response.body[0].lon;
-        console.log(`The latitude of LA is: ${latitude}`);
-        console.log(`The longitude of LA is: ${longitude}`);
-        }
-    });
+    //     } else {
+    //     let latitude = response.body[0].lat;
+    //     let longitude = response.body[0].lon;
+    //     console.log(`The latitude of LA is: ${latitude}`);
+    //     console.log(`The longitude of LA is: ${longitude}`);
+    //     }
+    // });
 
 //Weather-App 06
     // Adding Error Option when any type of error occurs in connectivity between our app & API or an invalid User Input is given
 
+//Weather-App 07
+    // CallBack function understanding (./playground/4-callbacks.js)
 
+//Weather-App 08
+    // exported geocode from another file (./utils/geocode.js)
+
+    const geocode = require('./utils/geocode');
+
+    geocode(`Armenia`, (error, data)  => {
+        console.log(`Error`,error);
+        console.log(`Data`,data);
+    });
