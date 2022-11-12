@@ -11,12 +11,9 @@
             } else if(response.body.error){
                 callback(`Unable to find the location!`, undefined);
             } else {
-                callback(undefined, {
-                    weather: response.body.current.weather_descriptions[0],
-                    temperature: response.body.current.temperature,
-                    time: response.body.location.localtime,
-                    isItDay: response.body.current.is_day
-                })
+                callback(undefined,
+                    `${response.body.current.weather_descriptions[0]} \nIts is currently ${response.body.current.temperature} degrees celcius out.\nIt feels like ${response.body.current.feelslike} degrees celcius out`
+                )
             }
         })
     }

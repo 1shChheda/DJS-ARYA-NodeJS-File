@@ -33,7 +33,7 @@
 //Weather-App 03 & 04
     // http://api.weatherstack.com/current?key=value&name=vansh
     
-        const request = require('request');
+        // const request = require('request');
 
         // const url = 'http://api.weatherstack.com/current?access_key=f2073b03c4a593be7688505ed3d0e125&query=37.8267,-122.4233';
 
@@ -94,9 +94,53 @@
 //Weather-App 08
     // exported geocode from another file (./utils/geocode.js)
 
-    const geocode = require('./utils/geocode');
+    // const geocode = require('./utils/geocode');
 
-    geocode(`Armenia`, (error, data)  => {
-        console.log(`Error`,error);
-        console.log(`Data`,data);
-    });
+    // geocode(`Germany`, (error, data)  => {
+    //     console.log(`Error`,error);
+    //     console.log(`Data`,data);
+    // });
+
+//Weather-App 09
+    // exported forecast from another file (./utils/forecast.js)
+
+
+    // const foreCast = require('./utils/forecast')
+
+    // foreCast(51.1638175,10.4478313, (error,data) => {
+    //     console.log(`Error`,error);
+    //     console.log(`Data`,data);
+    // })
+
+//Weather-App 10
+    // CallBack Chaining
+    const request = require('request');
+    const geocode = require('./utils/geocode');
+    const foreCast = require('./utils/forecast')
+
+    const address = process.argv[2];
+
+    if(address === undefined){
+        console.log(`Please provide an Address!`);
+    } else {
+
+    // the input for foreCast comes from the output of geocode
+        geocode(address, (error, data)  => {
+            if (error) {
+                return console.log(error); // return is going to stop the function execution aqfter printing the error message to the console
+            }
+            // console.log(`Error`,error);
+            // console.log(`Data`,data);
+            foreCast(data.latitude,data.longitude, (error,foreCastData) => { // we use some other name for data here in foreCast, so that we can access the data (of Geocode & foreCast both under the foreCast itself)
+                if (error) {
+                    return console.log(error);
+                }
+                console.log(data.location);
+                console.log(foreCastData);
+                
+            })
+        });
+
+    //Challenge: to get Location Name via Command Line Argument
+        // revise: Lecture 6 (S3-02)  { .\notes-app\app.js:73 }
+    }
