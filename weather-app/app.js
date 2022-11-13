@@ -125,17 +125,17 @@
     } else {
 
     // the input for foreCast comes from the output of geocode
-        geocode(address, (error, data)  => {
+        geocode(address, (error, {latitude, longitude, location} = {})  => {
             if (error) {
                 return console.log(error); // return is going to stop the function execution aqfter printing the error message to the console
             }
             // console.log(`Error`,error);
             // console.log(`Data`,data);
-            foreCast(data.latitude,data.longitude, (error,foreCastData) => { // we use some other name for data here in foreCast, so that we can access the data (of Geocode & foreCast both under the foreCast itself)
+            foreCast(latitude,longitude, (error,foreCastData) => { // we use some other name for data here in foreCast, so that we can access the data (of Geocode & foreCast both under the foreCast itself)
                 if (error) {
                     return console.log(error);
                 }
-                console.log(data.location);
+                console.log(location);
                 console.log(foreCastData);
                 
             })
