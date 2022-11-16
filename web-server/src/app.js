@@ -18,7 +18,17 @@ const app = express()
     // app.com/about
 // we have set-up multiple routes (/help & /about)
 
-app.use(express.static(path.join(__dirname, `../public`))); // will define the directory which is to be exposed by the web server
+// STATIC Assets/WebPage
+    app.use(express.static(path.join(__dirname, `../public`))); // will define the directory which is to be exposed by the web server
+
+// DYNAMIC Assets/WebPage
+    // Template Engine: `HANDLEBARS` can be used to render dynmaic content (we will be able to use the same markups {like HEADERS/FOOTERS} across many different pages)
+
+    // to setup handlebars here:
+    app.set(`view engine`,`hbs`) // app.set() is used to assigns the setting name to value { SYNTAX: app.set(name, value) }
+    
+    // we're gonna switch from static index.html {in public folder} to dynamic index.hbs {in views folder}
+        // handlebars file is nothing more than HTML file with a couple of few features to inject dynamic values
 
 app.get('', (req, res) => { // we use `app.get` here to set up our server to send a response when someone tries to go to a specific route
     // 1st argument: route name (like "/help" or "/about")
@@ -26,7 +36,27 @@ app.get('', (req, res) => { // we use `app.get` here to set up our server to sen
         // argument1: object containing info about incoming request from the server {called req}
         // argument2: response {contains methods to send what we wanna send to the request}
     // res.send(`Hello Express!`); // message will be displayed in the window browser
-    res.send(`<h1>Weather</h1>`);
+    res.render('index', {
+        title: `app.js Title`,
+        name: `Vansh Chheda`
+    })  // render is used to render that view_hbs_document to the browser
+        // 1st argument: name of the view to render
+        // 2nd argument: an Object which contains all the values you want that view to be able to access
+    
+})
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: `About Page by HBS`,
+        para: `This is page contains information about numerous things`
+    })
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        helpText: `some Helpful Info right here`,
+        provider: `1shChheda`
+    })
 })
 
 // app.get(`/help`, (req, res) => {
@@ -71,6 +101,6 @@ app.get('', (req, res) => { // we use `app.get` here to set up our server to sen
 
 app.listen(3000,() => {
     console.log(`Server is UP on port 3000`);
-}) // starts up the server & has it listen on a specific port
+})  // starts up the server & has it listen on a specific port
     // 1st argument: Port_no.
     // 2nd argument(optional): a callback function
