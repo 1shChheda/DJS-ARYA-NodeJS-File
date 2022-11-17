@@ -9,10 +9,12 @@
     <title>Index HomePage</title>
 </head>
 <body>
-    <h1>{{title}}</h1> <!-- HandleBars Syntax used, inside value: the name_value you gave in app.js, that you want to inject in the tag-->
+    {{>header}}
+    {{!-- <h1>{{title}}</h1> <!-- HandleBars Syntax used, inside value: the name_value you gave in app.js, that you want to inject in the tag--> --}}
     <p>Attaching This Static file by Absolute path from the root
         <br>Created by {{name}}
     </p>
     <img src="./img/rickroll.jpg" alt="Rick-Rolled!">
+    {{>footer}}
 </body>
 </html>

@@ -24,11 +24,23 @@ const app = express()
 // DYNAMIC Assets/WebPage
     // Template Engine: `HANDLEBARS` can be used to render dynmaic content (we will be able to use the same markups {like HEADERS/FOOTERS} across many different pages)
 
+    // Use of PARTIALS
+        // pArTiAlS are handlebar templates that can be re-used in different route-pages {like the same HEADER/FOOTER}
+        const hbs = require('hbs')
+        const partialsPath = path.join(__dirname, `../templates/partials`)
+        hbs.registerPartials(partialsPath)
+
     // to setup handlebars here:
     app.set(`view engine`,`hbs`) // app.set() is used to assigns the setting name to value { SYNTAX: app.set(name, value) }
     
     // we're gonna switch from static index.html {in public folder} to dynamic index.hbs {in views folder}
         // handlebars file is nothing more than HTML file with a couple of few features to inject dynamic values
+
+    // Customizing `views` Directory location
+        // whenever our site uses a TEMPLATE, it expects the files to be in a `views` directory (in the root of web-server) (by default)
+        // so, in-order to change this default `views` folder to some other folder (eg: templates), we do the following:
+        const viewsPath = path.join(__dirname, `../templates/dynTemps`);
+        app.set(`views`, viewsPath); // we're setting the value of `views` folder to be the template folder , so that when the server looks for `views` folder, it follows the `viewsPath` path, & gets into `/templates/dynTemps` folder
 
 app.get('', (req, res) => { // we use `app.get` here to set up our server to send a response when someone tries to go to a specific route
     // 1st argument: route name (like "/help" or "/about")
@@ -37,7 +49,7 @@ app.get('', (req, res) => { // we use `app.get` here to set up our server to sen
         // argument2: response {contains methods to send what we wanna send to the request}
     // res.send(`Hello Express!`); // message will be displayed in the window browser
     res.render('index', {
-        title: `app.js Title`,
+        title: `root page`,
         name: `Vansh Chheda`
     })  // render is used to render that view_hbs_document to the browser
         // 1st argument: name of the view to render
@@ -47,15 +59,17 @@ app.get('', (req, res) => { // we use `app.get` here to set up our server to sen
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: `About Page by HBS`,
-        para: `This is page contains information about numerous things`
+        title: `About Page`,
+        para: `This is page contains information about numerous things`,
+        name: `1shVenom`
     })
 })
 
 app.get('/help', (req, res) => {
     res.render('help', {
+        title: `Help Page`,
         helpText: `some Helpful Info right here`,
-        provider: `1shChheda`
+        name: `1shChheda`
     })
 })
 
